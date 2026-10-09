@@ -1,8 +1,7 @@
 import React from 'react';
 import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
 
-export default function EventCard({ event }) {
-  // Guard clause to avoid crash if event prop is missing
+export default function EventCard({ event, onViewDetails }) {
   if (!event) return null;
 
   const {
@@ -59,7 +58,10 @@ export default function EventCard({ event }) {
             <span>{registered}/{capacity} Registered</span>
           </div>
 
-          <button className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+          <button
+            onClick={() => onViewDetails?.(event)}
+            className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+          >
             View Details <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

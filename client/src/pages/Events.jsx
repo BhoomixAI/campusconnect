@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import EventCard from '../components/EventCard';
+import EventDetailView from '../components/EventDetailView';
 
 const CATEGORIES = [
   'All',
@@ -89,6 +90,7 @@ const EVENTS_DATA = [
 ];
 
 export default function Events() {
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -102,53 +104,63 @@ export default function Events() {
   });
 
   return (
-    <div className="p-8 space-y-6">
-      {/* Title Section */}
-      <div>
-        <h1 className="text-2xl font-bold text-slate-800">Discover Campus Events</h1>
-        <p className="text-xs text-slate-500 mt-1">
-          Find and join exciting events, workshops, competitions and more at IMS.
-        </p>
-      </div>
+    <div className="p-8">
+      {selectedEvent ? (
+        /* Detailed Event View */
+        <EventDetailView
+          event={selectedEvent}
+          onBack={() => setSelectedEvent(null)}
+        />
+      ) : (
+        /* Events Grid View */
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-800">Discover Campus Events</h1>
+            <p className="text-xs text-slate-500 mt-1">
+              Find and join exciting events, workshops, competitions and more at IMS.
+            </p>
+          </div>
 
-      {/* Filter Bar */}
-      <div className="space-y-4">
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search events, workshops, clubs..."
-            className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm transition-all"
-          />
+          <div className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search events, workshops, clubs..."
+                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm transition-all"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                    selectedCategory === cat
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                      : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+            {filteredEvents.map((evt) => (
+              <EventCard
+                key={evt.id}
+                event={evt}
+                onViewDetails={(selected) => setSelectedEvent(selected)}
+              />
+            ))}
+          </div>
         </div>
-
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
-                selectedCategory === cat
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                  : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Events Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
-        {filteredEvents.map((evt) => (
-          <EventCard key={evt.id} event={evt} />
-        ))}
-      </div>
+      )}
     </div>
   );
 }
