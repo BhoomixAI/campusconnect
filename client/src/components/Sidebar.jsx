@@ -7,6 +7,7 @@ import {
   CheckSquare,
   Award,
   QrCode,
+  FileCheck,
   Bell,
   Settings,
 } from 'lucide-react';
@@ -20,6 +21,7 @@ export default function Sidebar({ currentTab, setCurrentTab }) {
     { name: 'My Registrations', icon: CheckSquare },
     { name: 'Leaderboard', icon: Award },
     { name: 'Attendance', icon: QrCode },
+    { name: 'Approvals', icon: FileCheck }, // NEW
   ];
 
   const exploreNav = [
@@ -30,7 +32,6 @@ export default function Sidebar({ currentTab, setCurrentTab }) {
   return (
     <aside className="w-64 bg-[#0a0f1d] text-slate-300 flex flex-col justify-between p-4 min-h-screen border-r border-slate-800 shrink-0">
       <div>
-        {/* Brand Logo & College Title */}
         <div className="flex items-center gap-3 px-2 py-3 mb-6">
           <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/30">
             IMS
@@ -43,7 +44,6 @@ export default function Sidebar({ currentTab, setCurrentTab }) {
           </div>
         </div>
 
-        {/* Main Navigation Items */}
         <nav className="space-y-1">
           {mainNav.map((item) => {
             const Icon = item.icon;
@@ -66,7 +66,6 @@ export default function Sidebar({ currentTab, setCurrentTab }) {
         </nav>
       </div>
 
-      {/* Explore Section */}
       <div>
         <p className="px-3 text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">
           Explore

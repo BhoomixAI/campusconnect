@@ -8,9 +8,10 @@ import Calendar from './pages/Calendar';
 import MyRegistrations from './pages/MyRegistrations';
 import Leaderboard from './pages/Leaderboard';
 import Attendance from './pages/Attendance';
+import Approvals from './pages/Approvals';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('Attendance');
+  const [currentTab, setCurrentTab] = useState('Approvals');
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -27,6 +28,7 @@ export default function App() {
           {currentTab === 'My Registrations' && <MyRegistrations />}
           {currentTab === 'Leaderboard' && <Leaderboard />}
           {currentTab === 'Attendance' && <Attendance />}
+          {currentTab === 'Approvals' && <Approvals />}
         </main>
       </div>
     </div>
