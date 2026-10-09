@@ -3,9 +3,11 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Events from './pages/Events';
+import Clubs from './pages/Clubs';
+import Calendar from './pages/Calendar';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('Events'); // Default set to 'Events' page
+  const [currentTab, setCurrentTab] = useState('Calendar');
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -19,6 +21,8 @@ export default function App() {
         <main className="flex-1 overflow-y-auto">
           {currentTab === 'Home' && <Home />}
           {currentTab === 'Events' && <Events />}
+          {currentTab === 'Clubs' && <Clubs />}
+          {currentTab === 'Calendar' && <Calendar />}
         </main>
       </div>
     </div>
