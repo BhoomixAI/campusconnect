@@ -7,16 +7,15 @@ import Clubs from './pages/Clubs';
 import Calendar from './pages/Calendar';
 import MyRegistrations from './pages/MyRegistrations';
 import Leaderboard from './pages/Leaderboard';
+import Attendance from './pages/Attendance';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('Leaderboard');
+  const [currentTab, setCurrentTab] = useState('Attendance');
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      {/* Left Sidebar */}
       <Sidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
 
-      {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
 
@@ -27,6 +26,7 @@ export default function App() {
           {currentTab === 'Calendar' && <Calendar />}
           {currentTab === 'My Registrations' && <MyRegistrations />}
           {currentTab === 'Leaderboard' && <Leaderboard />}
+          {currentTab === 'Attendance' && <Attendance />}
         </main>
       </div>
     </div>
