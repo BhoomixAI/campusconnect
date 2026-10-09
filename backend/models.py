@@ -94,3 +94,43 @@ class ClashResponse(BaseModel):
     audience_clashes: list[ClashEventItem]
     class_clashes: list[ClassClashItem]
     suggested_slots: list[SlotOut]
+
+
+class RegisterRequest(BaseModel):
+    """Body for POST /events/{id}/register."""
+
+    user_id: UUID
+
+
+class RegistrationOut(BaseModel):
+    id: UUID
+    event_id: UUID
+    user_id: UUID
+    registered_at: datetime
+
+
+class QRTokenOut(BaseModel):
+    """Rotating token + QR image (PNG as base64) for display/scanning."""
+
+    event_id: UUID
+    token: str
+    qr_png_base64: str
+    window_seconds: int = 10
+
+
+class CheckinRequest(BaseModel):
+    """Body for POST /attendance/checkin."""
+
+    token: str
+    user_id: UUID
+    lat: float
+    lng: float
+
+
+class AttendanceOut(BaseModel):
+    id: UUID
+    event_id: UUID
+    user_id: UUID
+    checked_in_at: datetime
+    lat: Optional[float] = None
+    lng: Optional[float] = None
