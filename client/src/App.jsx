@@ -5,9 +5,10 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import Clubs from './pages/Clubs';
 import Calendar from './pages/Calendar';
+import MyRegistrations from './pages/MyRegistrations';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('Calendar');
+  const [currentTab, setCurrentTab] = useState('My Registrations');
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -23,6 +24,7 @@ export default function App() {
           {currentTab === 'Events' && <Events />}
           {currentTab === 'Clubs' && <Clubs />}
           {currentTab === 'Calendar' && <Calendar />}
+          {currentTab === 'My Registrations' && <MyRegistrations />}
         </main>
       </div>
     </div>
